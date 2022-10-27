@@ -25,7 +25,8 @@ export class App extends Component {
     })
   }
   
-  addContact = (name, number) => {    
+  addContact = (name, number) => {
+    
     const normalizedName = name.toLowerCase().trim();
 
     if (this.state.contacts.find(contact => contact.name.toLowerCase().trim() === normalizedName)) {
@@ -64,6 +65,7 @@ export class App extends Component {
       />
       <h2>Contacts</h2>
       <Filter
+        filter={this.state.filter}
         onFilterContacts={this.filterContacts} />
       {this.state.filter &&
         <ContactList

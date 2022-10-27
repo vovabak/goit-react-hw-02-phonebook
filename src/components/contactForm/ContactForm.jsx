@@ -1,6 +1,6 @@
 // import { Component } from "react";
 import { Formik } from 'formik';
-import { object, string, number } from 'yup';
+import { object, string } from 'yup';
 import PropTypes from 'prop-types';
 import { Label, Button, FormStyled as Form, Input } from './ContactForm.styled';
 
@@ -12,12 +12,12 @@ const initialValues = {
 
 let signupSchema = object({
   name: string().required(),
-  number: number().required().positive().integer(),  
+  number: string().required(), 
 });
-    
-export const ContactForm = ({ onSubmit }) => {
+
+export const ContactForm = ({ onSubmit }) => {    
    
-    const handleSubmit = (values, {resetForm}) => {       
+    const handleSubmit = (values, { resetForm }) => {           
 
         const { name, number } = values;        
    
@@ -36,7 +36,7 @@ export const ContactForm = ({ onSubmit }) => {
                 <Input
                     type="text"
                     name="name"
-                    pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+                    pattern="^[a-zA-Zа-яА-Я ]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
                     title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
                     required
                 />
@@ -54,6 +54,10 @@ export const ContactForm = ({ onSubmit }) => {
             <Button type="submit">Add contact</Button>
         </Form>
     </Formik>
+}
+
+ContactForm.propTypes = {
+    onSubmit: PropTypes.func.isRequired,
 }
 
 // export const ContactForm = ({ onSubmit }) => {
@@ -94,9 +98,6 @@ export const ContactForm = ({ onSubmit }) => {
 //             </Form>
 // }
 
-ContactForm.propTypes = {
-    onSubmit: PropTypes.func.isRequired,
-}
 // export class ContactForm extends Component {
 
 //     state = {        
