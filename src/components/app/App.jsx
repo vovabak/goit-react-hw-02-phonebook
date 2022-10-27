@@ -54,10 +54,11 @@ export class App extends Component {
   }
   
   render() {
-    const normalizedFilter = this.state.filter.toLowerCase();
+    const normalizedFilter = this.state.filter.toLowerCase().trim();
     const filteredContacts = this.state.contacts.filter(contact =>
       contact.name.toLowerCase().includes(normalizedFilter));
-
+    
+    
     return <Container >
       <h1>Phonebook</h1>
       <ContactForm
@@ -67,7 +68,7 @@ export class App extends Component {
       <Filter
         filter={this.state.filter}
         onFilterContacts={this.filterContacts} />
-      {this.state.filter &&
+      {normalizedFilter &&
         <ContactList
           filteredContacts={filteredContacts}
           onDeleteContact={this.deleteContact}
