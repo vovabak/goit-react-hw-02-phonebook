@@ -1,23 +1,22 @@
 // import { Component } from "react";
 import PropTypes from 'prop-types';
 import { ListItem } from "components/listItem";
-import { List, Text } from './ContactList.styled';
+import { List } from './ContactList.styled';
 
 
 export const ContactList = ({filteredContacts, onDeleteContact}) => {
 
-    return filteredContacts.length > 0 ?
-        <List>
-            {
+    return <List>
+            { filteredContacts.length !==0 &&
                 filteredContacts.map(contact =>
                     <ListItem
                         key={contact.id}
                         contact={contact}
-                        onDeleteContact={onDeleteContact}
-                    />)
-            }
+                        onDeleteContact={() => onDeleteContact(contact.id)}
+                    />)                
+            }            
         </List>
-            : <Text>Sorry, there's no contact mathing your querry</Text>        
+            
 }
 
 ContactList.propTypes = {

@@ -3,19 +3,14 @@ import { nanoid } from 'nanoid';
 import { ContactList } from '../contactList';
 import { Filter } from '../filter';
 import { ContactForm } from '../contactForm';
-import { Container } from "./App.styled";
+import { NotifyText } from './App.styled';
+import { Container } from './App.styled';
 
-const prevContacts = [
-      {id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
-      {id: 'id-2', name: 'Hermione Kline', number: '443-89-12'},
-      {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
-      {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
-]
-    
+   
 export class App extends Component {
 
   state = {
-    contacts: prevContacts,
+    contacts: [],
     filter: '',
   }
 
@@ -58,7 +53,6 @@ export class App extends Component {
     const filteredContacts = this.state.contacts.filter(contact =>
       contact.name.toLowerCase().includes(normalizedFilter));
     
-    
     return <Container >
       <h1>Phonebook</h1>
       <ContactForm
@@ -68,11 +62,17 @@ export class App extends Component {
       <Filter
         filter={this.state.filter}
         onFilterContacts={this.filterContacts} />
-      {normalizedFilter &&
-        <ContactList
+      {this.state.contacts.length !==0 &&
+        <ContactList          
           filteredContacts={filteredContacts}
           onDeleteContact={this.deleteContact}
         />
+      }
+      {filteredContacts.length === 0 && this.state.contacts.length !== 0 &&
+          <NotifyText>Sorry, there's no contact matching your querry</NotifyText>
+      }
+      {this.state.contacts.length === 0 && normalizedFilter !== '' &&
+          <NotifyText>There's no contact in your Phonebook</NotifyText>
       }
     </Container>
   };
